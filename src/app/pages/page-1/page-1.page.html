@@ -1,0 +1,126 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Voltar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>🍳 Receitas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <!-- CULINÁRIAS -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>🍽️ Explorar Culinárias</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="cuisines-grid">
+        
+        <ion-button (click)="loadCuisine('Portuguese')" expand="block" color="primary">
+          🇵🇹 Portuguesa
+        </ion-button>
+        
+        <ion-button (click)="loadCuisine('Italian')" expand="block" color="danger">
+          🇮🇹 Italiana
+        </ion-button>
+        
+        <ion-button (click)="loadCuisine('Mexican')" expand="block" color="warning">
+          🇲🇽 Mexicana
+        </ion-button>
+
+        <ion-button (click)="getRandomMeal()" expand="block" fill="outline">
+          🎲 Receita Surpresa
+        </ion-button>
+
+        <!-- BOTÃO RESETAR -->
+        <ion-button (click)="resetPage()" expand="block" fill="clear" color="medium">
+          <ion-icon name="refresh" slot="start"></ion-icon>
+          🔄 Limpar Tela
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTA DE RECEITAS -->
+  <div *ngIf="meals.length > 0">
+    <h2>{{ currentCuisine }} ({{ meals.length }} receitas)</h2>
+    
+    <ion-list>
+      <ion-item *ngFor="let meal of meals" button (click)="viewMealDetails(meal.idMeal)">
+        <ion-thumbnail slot="start">
+          <img [src]="meal.strMealThumb" [alt]="meal.strMeal">
+        </ion-thumbnail>
+        <ion-label>
+          <h3>{{ meal.strMeal }}</h3>
+          <p>{{ getTranslatedCategory(meal.strCategory) }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- DETALHES DA RECEITA -->
+  <ion-card *ngIf="selectedMeal">
+    <ion-card-header>
+      <ion-card-title>{{ selectedMeal.strMeal }}</ion-card-title>
+      <ion-card-subtitle>
+        {{ getTranslatedCategory(selectedMeal.strCategory) }} - 
+        {{ getTranslatedArea(selectedMeal.strArea) }}
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="meal-image">
+        <img [src]="selectedMeal.strMealThumb" [alt]="selectedMeal.strMeal">
+      </div>
+
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>🔪 Categoria:</strong> {{ getTranslatedCategory(selectedMeal.strCategory) }}</ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>🌎 Origem:</strong> {{ getTranslatedArea(selectedMeal.strArea) }}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-accordion-group>
+        <ion-accordion value="ingredients">
+          <ion-item slot="header">
+            <ion-label><strong>🛒 Ingredientes</strong></ion-label>
+          </ion-item>
+          <div slot="content">
+            <ion-list>
+              <ion-item *ngFor="let ingredient of getIngredients()">
+                <ion-label>
+                  {{ ingredient.measure }} {{ ingredient.ingredient }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="instructions">
+          <ion-item slot="header">
+            <ion-label><strong>👨‍🍳 Modo de Preparo</strong></ion-label>
+          </ion-item>
+          <div slot="content">
+            <p class="instructions">{{ selectedMeal.strInstructions }}</p>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <ion-button *ngIf="selectedMeal.strYoutube" expand="block" color="danger" (click)="openYoutube()">
+        <ion-icon name="logo-youtube" slot="start"></ion-icon>
+        Ver Vídeo no YouTube
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading">
+    <ion-spinner></ion-spinner>
+    <p>Carregando receitas...</p>
+  </div>
+
+</ion-content>

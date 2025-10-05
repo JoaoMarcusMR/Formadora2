@@ -1,0 +1,44 @@
+.cuisines-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  // Estilo específico para o botão resetar no grid
+  ion-button[fill="clear"] {
+    --color: var(--ion-color-medium);
+    font-size: 14px;
+    
+    &:hover {
+      --color: var(--ion-color-dark);
+    }
+  }
+}
+
+.meal-image {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  
+  img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+}
+
+.instructions {
+  white-space: pre-line;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+ion-card {
+  max-width: 600px;
+  margin: 20px auto;
+}

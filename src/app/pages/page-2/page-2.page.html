@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Identificação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Informações do Aluno</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Coloca tua foto aqui - muda o caminho se precisar -->
+      <div class="photo-container">
+        <img src="assets/icon/fotominha.png" alt="Minha Foto" class="student-photo">
+      </div>
+
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label><strong>Nome:</strong>João Marcus Machado Rodrigues</ion-label>
+        </ion-item>
+
+                <ion-item>
+          <ion-label><strong>Matrícula:</strong> 24106801 </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Unidade:</strong> CG1 e CG2</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Turma:</strong> Análise e Desenvolvimento de Sistemas</ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>Período:</strong> Manhã </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label><strong>Horário:</strong> 8:30 as 11:00</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-back-button 
+  defaultHref="/"
+  text="Voltar"
+  icon="arrow-back"
+  color="primary">
+</ion-back-button>
